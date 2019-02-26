@@ -1,0 +1,31 @@
+{
+  "name": "max-concurrent-fetch-hook",
+  "version": "0.0.1-beta",
+  "description": "allow a maxinum number of a specific fetch call to be in flight at a single time, if number of calls exceeds number allowed  will abort in order, first in first out",
+  "main": "dist/cjs/index.js",
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "BABEL_ENV=cjs babel src --out-dir ./dist/cjs",
+    "build:esm": "BABEL_ENV=esm babel src --out-dir ./dist/esm",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "fetch",
+    "hooks",
+    "react-hooks",
+    "react",
+    "hooks"
+  ],
+  "author": "Conor Hastings",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "prettier": "^1.16.4"
+  },
+  "peerDependencies": {
+    "react": "^16.8.3"
+  }
+}
