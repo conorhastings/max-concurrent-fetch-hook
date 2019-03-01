@@ -14,8 +14,8 @@ export default function useMaxConcurrentFetch({
     if (shouldMakeNewRequest) {
       const abortController = new AbortController();
       setInFlightRequests(abortController);
-      if (inFlightRequests > max) {
-        const requestsToAbortTotal = inFlightRequests - max;
+      if (inFlightRequests.length > max) {
+        const requestsToAbortTotal = inFlightRequests.length - max;
         for (let i = 0; i < requestsToAbortTotal; i++) {
           inFlightRequests[i].abort();
         }
