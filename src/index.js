@@ -12,6 +12,7 @@ export default function useMaxConcurrentFetch({
   
   useEffect(() => {
     if (shouldMakeNewRequest) {
+      let isOldRequest = false;
       const abortController = new AbortController();
       setInFlightRequests(abortController);
       if (inFlightRequests.length > max) {
@@ -23,14 +24,24 @@ export default function useMaxConcurrentFetch({
       }
       fetch(url, { signal: abortController.signal, ...options })
         .then(res => {
+          if (isOldRequest) {
+            return;
+          }
           const result = handleSuccess(res);
           setResult([...results, result]);
         })
         .catch(error => {
+          if (isOldRequest) {
+            return;
+          }
           const result = handleError(error);
           setReult([...results, result]);
         });
     }
+
+    return () => {
+      isOldRequest = true;
+    };
   }, [shouldMakeNewRequest]);
 
   return results;
